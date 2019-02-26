@@ -29,7 +29,7 @@ class Task:
         infoDlg = DlgFromDict(dictionary=info,
                               title='Enter a subject number or name')
         if infoDlg.OK:
-            print info
+            print(info)
         else:
             sys.exit()
 

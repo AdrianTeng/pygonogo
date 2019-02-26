@@ -77,7 +77,7 @@ def setup_geometry(win, pars):
     xc, yc = np.meshgrid(xcenters, ycenters)
 
     # offset so that coord origin is at center
-    target_centers = np.array(zip(xc.ravel(), yc.ravel())) - (0.5, 0.5)
+    target_centers = np.array(list(zip(xc.ravel(), yc.ravel()))) - (0.5, 0.5)
     geom['target_centers'] = target_centers
 
     return geom
@@ -94,7 +94,7 @@ def setup_data_file(taskname, subjectname):
     else:
         datadir = os.path.join(root, 'data', taskname, subjectname)
     if not os.path.exists(datadir):
-        print datadir
+        print(datadir)
         os.makedirs(datadir)
 
     # check previous data files to get next name in sequence for this run
