@@ -61,7 +61,7 @@ class Controller:
         pressed = []
         while True:
             self.present_target()
-            pressed = event.getKeys(keyList=['left', 'right', 'escape'])
+            pressed = event.getKeys(keyList=['space', 'escape'])
             if 'escape' in pressed:
                 self.end_task = True
                 break
