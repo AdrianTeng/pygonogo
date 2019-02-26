@@ -1,3 +1,5 @@
+from random import random, randint
+
 from psychopy import prefs
 prefs.general['audioLib'] = ['pyo']
 from psychopy.sound import Sound
@@ -29,22 +31,17 @@ class Display:
         self.notargs = []
         self.gotargs = []
         self.deftargs = []
-        self.bkimg = ImageStim(self.win, image='resources/pond.jpg',
-                               units='norm', size=(2.0, 2.0))
 
         for targ in range(self.geom['numtargs']):
-            self.notargs.append(ImageStim(self.win,
-                                          image='resources/rfrog2.jpg',
-                                          size=self.geom['target_size'],
+            self.notargs.append(TextStim(self.win,
+                                          text='0',
                                           pos=self.geom['target_centers'][targ]))
-            self.gotargs.append(ImageStim(self.win,
-                                          image='resources/gfrog2.jpg',
-                                          size=self.geom['target_size'],
-                                          pos=self.geom['target_centers'][targ]))
-            self.deftargs.append(ImageStim(self.win,
-                                           image='resources/lilypad.jpg',
-                                           size=self.geom['target_size'],
-                                           pos=self.geom['target_centers'][targ]))
+            self.gotargs.append(TextStim(self.win, text='1', pos=self.geom['target_centers'][targ]))
+            self.gotargs.append(TextStim(self.win, text='2', pos=self.geom['target_centers'][targ]))
+            self.gotargs.append(TextStim(self.win, text='3', pos=self.geom['target_centers'][targ]))
+            self.gotargs.append(TextStim(self.win, text='4', pos=self.geom['target_centers'][targ]))
+
+            self.deftargs.append(TextStim(self.win, text='X', pos=self.geom['target_centers'][targ]))
 
         # set initial target stims to be the defaults
         self.targets = []
@@ -65,7 +62,8 @@ class Display:
 
     def set_target_image(self, index, value='default'):
         if value == 'go':
-            self.targets[index] = self.gotargs[index]
+            if self.targets[index] not in self.gotargs:
+                self.targets[index] = self.gotargs[randint(0, len(self.gotargs) - 1)]
         elif value == 'no':
             self.targets[index] = self.notargs[index]
         elif value == 'default':
@@ -108,7 +106,6 @@ class Display:
 
     def draw(self):
         self.update()
-        self.bkimg.draw()
         self.scoretxt.draw()
         for stim in self.targets:
             stim.draw()
