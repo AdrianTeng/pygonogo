@@ -65,8 +65,7 @@ class Controller:
             if 'escape' in pressed:
                 self.end_task = True
                 break
-            elif pressed or (self.joystick and True in
-                self.joystick.getAllButtons()):
+            elif pressed or (self.joystick and True in self.joystick.getAllButtons()):
                 self.input_received = True
                 self.mark_event('responded', channel=3)
                 break
@@ -148,3 +147,13 @@ class Controller:
     def calculate_points(self, pars, rt):
         return int(np.floor(pars['pts_per_correct'] * np.exp(
             -(rt - pars['pts_offset']) / pars['pts_decay'])))
+
+    def run_tutorial(self):
+        self.display.display_tutorial()
+        while True:
+            pressed = event.getKeys(keyList=['space', 'escape'])
+            if 'escape' in pressed:
+                self.end_task = True
+                break
+            elif pressed:
+                break

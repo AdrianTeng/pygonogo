@@ -56,6 +56,7 @@ class Task:
             json.dump(self.data, fp)
 
     def run(self):
+        self.controller.run_tutorial()
         while not self.controller.end_task:
             self.controller.run_trial()
 
