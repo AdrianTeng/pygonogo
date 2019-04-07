@@ -10,10 +10,7 @@ import display
 import psychopy.event as event
 import json
 
-try:
-    from Plexon import PlexClient
-except:
-    PlexClient = None
+PlexClient = None
 
 
 class Task:
@@ -40,12 +37,7 @@ class Task:
         self.display = display.Display(self.pars)
         self.data = []
 
-        if PlexClient:
-            self.plexon = PlexClient.PlexClient()
-        else:
-            self.plexon = None
-
-        self.logger = initializers.setup_logging(self.data, self.plexon)
+        self.logger = initializers.setup_logging(self.data)
         self.outfile, self.parsfile = initializers.setup_data_file(
             self.taskname, self.subject)
         self.joystick = initializers.setup_joystick()
@@ -57,8 +49,6 @@ class Task:
             json.dump(self.pars, fp)
 
     def teardown(self):
-        if self.plexon:
-            self.plexon.CloseClient()
         self.display.close()
 
     def save(self):

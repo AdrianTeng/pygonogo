@@ -29,20 +29,11 @@ def setup_joystick():
         return None
 
 
-def setup_logging(data, plexon):
-    if plexon:
-        plexon.InitClient()
+def setup_logging(data):
 
     nidaq = None
 
     def logger(event_name, channel=1):
-        if plexon:
-            plexon.MarkEvent(channel)
-        elif nidaq:
-            pass  # send user events for channel 1
-        else:
-            pass
-
         event = {"event": event_name, "time": monotonicClock.getTime()}
 
         data.append(event)
