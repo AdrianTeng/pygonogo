@@ -117,9 +117,6 @@ class Controller:
         self.trial_over = True
 
     def display_outcome(self):
-        # update text onscreen
-        self.display.set_target_text(self.which_target,
-                                     str(self.pts_this_trial))
         self.score += self.pts_this_trial
 
         # refresh screen
