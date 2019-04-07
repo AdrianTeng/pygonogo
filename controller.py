@@ -121,7 +121,6 @@ class Controller:
         self.display.set_target_text(self.which_target,
                                      str(self.pts_this_trial))
         self.score += self.pts_this_trial
-        self.display.set_score(self.score)
 
         # refresh screen
         self.outcome_sound.play()

@@ -49,10 +49,6 @@ class Display:
             self.targets.append(targ)
 
     def setup_text(self):
-        self.scoretxt = TextStim(self.win, text="Total Points: ",
-                                 font='Helvetica', alignHoriz='left', alignVert='top', units='norm',
-                                 pos=(-1, 1), height=0.2, color=[178, 34, 34], colorSpace='rgb255',
-                                 wrapWidth=2)
 
         self.targtxt = []
         for targ in range(self.geom['numtargs']):
@@ -71,9 +67,6 @@ class Display:
 
     def set_target_text(self, index, value):
         self.targtxt[index].setText(value)
-
-    def set_score(self, pts):
-        self.scoretxt.setText('Total Points: ' + str(pts))
 
     def onset(self, index, value):
         self.rotation_clocks[index] = Clock()
@@ -106,7 +99,6 @@ class Display:
 
     def draw(self):
         self.update()
-        self.scoretxt.draw()
         for stim in self.targets:
             stim.draw()
         for stim in self.targtxt:
