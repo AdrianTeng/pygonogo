@@ -56,7 +56,7 @@ def setup_geometry(win, pars):
     grid = pars['grid']
     geom['numtargs'] = np.prod(grid)
     target_max_size = reduced_bounds / grid
-    target_scale = 0.5
+    target_scale = 20.0
     target_size = target_scale * np.max(target_max_size) * np.ones(2)
     geom['target_size'] = target_size
 
