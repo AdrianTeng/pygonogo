@@ -104,6 +104,8 @@ class Controller:
 
         else:
             self.result = 'premature'
+            self.trial_over = True
+            self.correct = False
             self.pts_this_trial = -self.pars['pts_per_correct']
             self.outcome_sound = self.display.firesnd
             self.outcome_delay = 0.3

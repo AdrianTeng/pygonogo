@@ -33,15 +33,13 @@ class Display:
         self.deftargs = []
 
         for targ in range(self.geom['numtargs']):
-            self.notargs.append(TextStim(self.win,
-                                          text='0',
-                                          pos=self.geom['target_centers'][targ]))
+            self.notargs.append(TextStim(self.win, text='0', pos=self.geom['target_centers'][targ]))
             self.gotargs.append(TextStim(self.win, text='1', pos=self.geom['target_centers'][targ]))
             self.gotargs.append(TextStim(self.win, text='2', pos=self.geom['target_centers'][targ]))
             self.gotargs.append(TextStim(self.win, text='3', pos=self.geom['target_centers'][targ]))
             self.gotargs.append(TextStim(self.win, text='4', pos=self.geom['target_centers'][targ]))
 
-            self.deftargs.append(TextStim(self.win, text='X', pos=self.geom['target_centers'][targ]))
+            self.deftargs.append(TextStim(self.win, text='+', pos=self.geom['target_centers'][targ]))
 
         # set initial target stims to be the defaults
         self.targets = []
