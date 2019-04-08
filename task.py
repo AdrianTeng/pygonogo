@@ -10,6 +10,8 @@ import display
 import psychopy.event as event
 import json
 
+from controller import EscapeKeyPressed
+
 PlexClient = None
 
 
@@ -56,12 +58,34 @@ class Task:
             json.dump(self.data, fp)
 
     def run(self):
-        self.controller.run_tutorial()
-        while not self.controller.end_task:
-            self.controller.run_trial()
+        try:
+            self.controller.run_tutorial()
 
-            # save data after each trial
-            self.save()
+            # tutorial
+            i = 0
+            while not self.controller.end_task or i < 10:
+                self.controller.run_trial(has_nogo=True)
+                self.save()
+                i += 1
+                if event.getKeys(keyList=['escape']):
+                    raise EscapeKeyPressed()
+        except EscapeKeyPressed:
+            print("Escape key pressed. Exiting.")
 
-            if event.getKeys(keyList=['escape']):
-                break
+        # # Go only
+        # i = 0
+        # while not self.controller.end_task or i < 10:
+        #     self.controller.run_trial(has_nogo=False)
+        #     i += 1
+        #     self.save()  # save data after each trial
+        #     if event.getKeys(keyList=['escape']):
+        #         break
+        #
+        # # Go and no go
+        # i = 0
+        # while not self.controller.end_task or i < 10:
+        #     i += 1
+        #     self.controller.run_trial(has_nogo=True)
+        #     self.save()  # save data after each trial
+        #     if event.getKeys(keyList=['escape']):
+        #         break
