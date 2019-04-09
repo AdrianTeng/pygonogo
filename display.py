@@ -106,7 +106,7 @@ class Display:
     def close(self):
         self.win.close()
 
-    def display_tutorial(self):
-        box = TextStim(self.win, text='Instructions goes here!!!')
+    def display_message(self, message):
+        box = TextStim(self.win, text=message)
         box.draw()
         self.win.flip()
