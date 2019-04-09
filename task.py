@@ -55,7 +55,7 @@ class Task:
 
     def save(self):
         with open(self.outfile, 'w+') as fp:
-            json.dump(self.data, fp)
+            fp.write("\n".join(self.data))
 
     def run(self):
         try:

@@ -90,15 +90,15 @@ def setup_data_file(taskname, subjectname):
     # check previous data files to get next name in sequence for this run
     prev_files = os.listdir(datadir)
     file_pieces = [pf.split('.') for pf in prev_files]
-    file_versions = [int(pc[1]) for pc in file_pieces if pc[-1] == 'json']
+    file_versions = [int(pc[1]) for pc in file_pieces if pc[-1] == 'csv']
     if file_versions:
         this_version = max(file_versions) + 1
     else:
         this_version = 1
 
     # build file name
-    fname = '.'.join([subjectname, str(this_version), taskname, 'json'])
-    parsname = '.'.join([subjectname, str(this_version), 'pars', 'json'])
+    fname = '.'.join([subjectname, str(this_version), taskname, 'csv'])
+    parsname = '.'.join([subjectname, str(this_version), 'pars', 'csv'])
 
     # return absolute path
     return (os.path.join(datadir, fname), os.path.join(datadir, parsname))
