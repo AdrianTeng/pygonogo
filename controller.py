@@ -117,7 +117,8 @@ class Controller:
         self.score += self.pts_this_trial
 
         # refresh screen
-        self.outcome_sound.play()
+        if self.outcome_sound.status != 1:
+            self.outcome_sound.play()
 
         # during static period, code between start and complete will run
         iti = StaticPeriod()
