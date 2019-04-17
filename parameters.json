@@ -1,9 +1,9 @@
 {
     "numtrials": 50000,
-    "max_rt": 1.5,
+    "max_rt": 0.2,
     "frac_nogo": 0.4,
-    "max_onset": 1.0,
-    "min_onset": 0.5,
+    "max_onset": 1.3,
+    "min_onset": 1.3,
     "pts_per_correct": 50,
     "pts_decay": 0.5,
     "pts_offset": 0.350,
