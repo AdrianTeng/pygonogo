@@ -12,7 +12,8 @@ import json
 
 from controller import EscapeKeyPressed
 
-PlexClient = None
+NOGO_TRIALS = ['01110010101100011010', '10011110011110010000', '10001101010110101001', '00001100110011011101',
+               '00011010101111101000']
 
 
 class Task:
@@ -64,33 +65,34 @@ class Task:
             # tutorial
             i = 0
             while not self.controller.end_task and i < 5:
-                self.controller.run_trial(has_nogo=True)
+                self.controller.run_trial(is_nogo=True)
                 i += 1
                 if event.getKeys(keyList=['escape']):
                     raise EscapeKeyPressed()
             self.controller.end_task = False
 
-            self.controller.run_message("Go Only")
+            for trial_set_count in range(4):
+                self.controller.run_message("Go Only")
+                # Go only
+                i = 0
+                while not self.controller.end_task and i < 20:
+                    self.controller.run_trial(is_nogo=False)
+                    self.save()  # save data after each trial
+                    i += 1
+                    if event.getKeys(keyList=['escape']):
+                        break
+                self.controller.end_task = False
 
-            # Go only
-            i = 0
-            while not self.controller.end_task and i < 5:
-                self.controller.run_trial(has_nogo=False)
-                i += 1
-                self.save()  # save data after each trial
-                if event.getKeys(keyList=['escape']):
-                    break
-            self.controller.end_task = False
-
-            self.controller.run_message("Go and No-Go")
-
-            # Go and no go
-            i = 0
-            while not self.controller.end_task and i < 5:
-                i += 1
-                self.controller.run_trial(has_nogo=True)
-                self.save()  # save data after each trial
-                if event.getKeys(keyList=['escape']):
-                    break
+                self.controller.run_message("Go and No-Go")
+                # Go and no go
+                i = 0
+                trial_flavour = NOGO_TRIALS[trial_set_count]
+                while not self.controller.end_task and i < 20:
+                    self.controller.run_trial(is_nogo=int(trial_flavour[i]))
+                    self.save()  # save data after each trial
+                    i += 1
+                    if event.getKeys(keyList=['escape']):
+                        break
+                self.controller.end_task = False
         except EscapeKeyPressed:
             print("Escape key pressed. Exiting.")

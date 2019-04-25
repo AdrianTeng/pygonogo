@@ -14,7 +14,7 @@ class Controller:
         self.mark_event = logger
         self.joystick = joystick
 
-    def open_trial(self, has_nogo):
+    def open_trial(self, is_nogo):
         self.trialnum += 1
         self.result = ''
         self.pts_this_trial = 0
@@ -30,7 +30,7 @@ class Controller:
         self.which_target = np.random.randint(0, numtargs)
         self.onset_interval = np.random.uniform(self.pars['min_onset'],
                                                 self.pars['max_onset'])
-        self.is_nogo = np.random.rand() < self.pars['frac_nogo'] if has_nogo else False
+        self.is_nogo = bool(is_nogo)
         if self.is_nogo:
             self.trial_type = 'no'
         else:
@@ -38,8 +38,8 @@ class Controller:
 
         self.onset_countdown = CountdownTimer(self.onset_interval)
 
-    def run_trial(self, has_nogo):
-        self.open_trial(has_nogo)
+    def run_trial(self, is_nogo):
+        self.open_trial(is_nogo)
 
         while not self.trial_over:
             self.wait_for_input()
