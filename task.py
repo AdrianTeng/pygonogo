@@ -60,7 +60,7 @@ class Task:
 
     def run(self):
         try:
-            self.controller.run_message("Tutorial instructions here")
+            self.controller.run_message('Please press "space" when you see 1-5, and do NOT click anything if you see 0')
 
             # tutorial
             i = 0
@@ -72,7 +72,7 @@ class Task:
             self.controller.end_task = False
 
             for trial_set_count in range(4):
-                self.controller.run_message("Go Only")
+                self.controller.run_message("Trial {}".format(2 * trial_set_count + 1))
                 # Go only
                 i = 0
                 while not self.controller.end_task and i < 20:
@@ -83,7 +83,7 @@ class Task:
                         break
                 self.controller.end_task = False
 
-                self.controller.run_message("Go and No-Go")
+                self.controller.run_message("Trial {}".format(2 * trial_set_count + 2))
                 # Go and no go
                 i = 0
                 trial_flavour = NOGO_TRIALS[trial_set_count]
@@ -94,5 +94,6 @@ class Task:
                     if event.getKeys(keyList=['escape']):
                         break
                 self.controller.end_task = False
+            self.controller.run_message("The end, thank you")
         except EscapeKeyPressed:
             print("Escape key pressed. Exiting.")
