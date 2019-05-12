@@ -65,7 +65,7 @@ class Task:
             # tutorial
             i = 0
             while not self.controller.end_task and i < 5:
-                self.controller.run_trial(is_nogo=True)
+                self.controller.run_trial(is_nogo=bool(i % 2))
                 i += 1
                 if event.getKeys(keyList=['escape']):
                     raise EscapeKeyPressed()
