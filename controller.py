@@ -142,8 +142,8 @@ class Controller:
         return int(np.floor(pars['pts_per_correct'] * np.exp(
             -(rt - pars['pts_offset']) / pars['pts_decay'])))
 
-    def run_message(self, message):
-        self.display.display_message(message)
+    def run_message(self, message, height=None):
+        self.display.display_message(message, height=height)
         while True:
             pressed = event.getKeys(keyList=['space', 'escape'])
             if 'escape' in pressed:

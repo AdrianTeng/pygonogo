@@ -60,7 +60,8 @@ class Task:
 
     def run(self):
         try:
-            self.controller.run_message('Please press "space" when you see 1-5, and do NOT click anything if you see 0')
+            self.controller.run_message('Please press "space" when you see 1-5, and do NOT click anything if you see 0',
+                                        height=0.1)
 
             # tutorial
             i = 0
