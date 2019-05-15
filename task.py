@@ -72,12 +72,15 @@ class Task:
                     raise EscapeKeyPressed()
             self.controller.end_task = False
 
+            go_only_res = []
+            go_nogo_res = []
+
             for trial_set_count in range(4):
                 self.controller.run_message("Trial {}".format(2 * trial_set_count + 1))
                 # Go only
                 i = 0
                 while not self.controller.end_task and i < 20:
-                    self.controller.run_trial(is_nogo=False)
+                    go_only_res.append(self.controller.run_trial(is_nogo=False))
                     self.save()  # save data after each trial
                     i += 1
                     if event.getKeys(keyList=['escape']):
@@ -89,12 +92,14 @@ class Task:
                 i = 0
                 trial_flavour = NOGO_TRIALS[trial_set_count]
                 while not self.controller.end_task and i < 20:
-                    self.controller.run_trial(is_nogo=int(trial_flavour[i]))
+                    go_nogo_res.append(self.controller.run_trial(is_nogo=int(trial_flavour[i])))
                     self.save()  # save data after each trial
                     i += 1
                     if event.getKeys(keyList=['escape']):
                         break
                 self.controller.end_task = False
             self.controller.run_message("The end, thank you")
+            print("Go only result: {}".format({i: go_only_res.count(i) for i in go_only_res}))
+            print("Go/no go only result: {}".format({i: go_nogo_res.count(i) for i in go_nogo_res}))
         except EscapeKeyPressed:
             print("Escape key pressed. Exiting.")

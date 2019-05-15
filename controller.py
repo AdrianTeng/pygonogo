@@ -24,7 +24,6 @@ class Controller:
         self.no_response = False
         self.response_timer = None
         self.rt = float('NaN')
-        self.data = []
 
         numtargs = np.prod(self.pars['grid'])
         self.which_target = np.random.randint(0, numtargs)
@@ -54,7 +53,7 @@ class Controller:
 
         self.close_trial()
 
-        return self.data
+        return self.result
 
     def wait_for_input(self):
         pressed = []
