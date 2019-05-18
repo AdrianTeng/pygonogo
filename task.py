@@ -3,6 +3,9 @@ Class definition for task object.
 """
 
 import sys
+from os import getcwd
+import os
+
 from psychopy.gui import DlgFromDict
 import initializers
 import controller
@@ -41,21 +44,16 @@ class Task:
         self.data = []
 
         self.logger = initializers.setup_logging(self.data)
-        self.outfile, self.parsfile = initializers.setup_data_file(
-            self.taskname, self.subject)
         self.joystick = initializers.setup_joystick()
         self.controller = controller.Controller(self.pars, self.display,
                                                 self.logger, self.joystick)
 
-        # save task parameters
-        with open(self.parsfile, 'w+') as fp:
-            json.dump(self.pars, fp)
 
     def teardown(self):
         self.display.close()
 
     def save(self):
-        with open(self.outfile, 'w+') as fp:
+        with open(os.path.join(getcwd(), "{}_{}.csv".format(self.taskname, self.subject)), 'w+') as fp:
             fp.write("\n".join(self.data))
 
     def run(self):
@@ -81,7 +79,6 @@ class Task:
                 i = 0
                 while not self.controller.end_task and i < 20:
                     go_only_res.append(self.controller.run_trial(is_nogo=False))
-                    self.save()  # save data after each trial
                     i += 1
                     if event.getKeys(keyList=['escape']):
                         break
@@ -93,11 +90,11 @@ class Task:
                 trial_flavour = NOGO_TRIALS[trial_set_count]
                 while not self.controller.end_task and i < 20:
                     go_nogo_res.append(self.controller.run_trial(is_nogo=int(trial_flavour[i])))
-                    self.save()  # save data after each trial
                     i += 1
                     if event.getKeys(keyList=['escape']):
                         break
                 self.controller.end_task = False
+            self.save()
             self.controller.run_message("The end, thank you")
             print("Go only result: {}".format(sum(go_only_res)))
             print("Go/no go only result: {}".format(sum(go_nogo_res)))

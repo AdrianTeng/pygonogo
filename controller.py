@@ -133,9 +133,9 @@ class Controller:
 
     def close_trial(self):
         # print to screen
-        self.mark_event(",".join(map(str, [self.trialnum, self.trial_type, self.result, self.rt, self.correct, self.pts_this_trial])))
-        print('Trial {0:d}: Type {1}  Result: {2}  RT: {3:0.3g}  Correct: {4:d}  Points: {5:d}'.
-              format(self.trialnum, self.trial_type, self.result, self.rt, self.correct, self.pts_this_trial))
+        self.mark_event(",".join(map(str, [self.trialnum, self.trial_type, self.result, self.rt, self.correct])))
+        print('Trial {0:d}: Type {1}  Result: {2}  RT: {3:0.3g}  Correct: {4:d}'.
+              format(self.trialnum, self.trial_type, self.result, self.rt, self.correct))
 
     def calculate_points(self, pars, rt):
         return int(np.floor(pars['pts_per_correct'] * np.exp(
