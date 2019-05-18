@@ -17,7 +17,7 @@ def setup_pars(fname):
 
 
 def setup_window():
-    win = Window(fullscr=False, allowGUI=False, screen=1, units='height',
+    win = Window(fullscr=True, allowGUI=False, screen=1, units='height',
                  monitor='testMonitor', colorSpace='rgb255', winType='pyglet')
     return win
 
