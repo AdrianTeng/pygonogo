@@ -99,7 +99,8 @@ class Task:
                         break
                 self.controller.end_task = False
             self.controller.run_message("The end, thank you")
-            print("Go only result: {}".format({i: go_only_res.count(i) for i in go_only_res}))
-            print("Go/no go only result: {}".format({i: go_nogo_res.count(i) for i in go_nogo_res}))
+            print("Go only result: {}".format(sum(go_only_res)))
+            print("Go/no go only result: {}".format(sum(go_nogo_res)))
+            self.controller.run_message("Go only: {}, go-nogo: {}".format(sum(go_only_res), sum(go_nogo_res)))
         except EscapeKeyPressed:
             print("Escape key pressed. Exiting.")
