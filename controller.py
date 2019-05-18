@@ -53,7 +53,7 @@ class Controller:
 
         self.close_trial()
 
-        return self.result
+        return self.correct
 
     def wait_for_input(self):
         pressed = []
