@@ -58,7 +58,7 @@ class Task:
             fp.write("\n".join(self.data))
             fp.write("\nFinal score={}".format(final_score))
 
-    def run(self):
+    def run(self, shorten=False):
         try:
             self.controller.run_message('Please press "space" when you see 1-5, and do NOT click anything if you see 0',
                                         height=0.1)
@@ -76,15 +76,16 @@ class Task:
             go_nogo_res = []
 
             for trial_set_count in range(4):
-                self.controller.run_message("Trial {}".format(2 * trial_set_count + 1))
-                # Go only
-                i = 0
-                while not self.controller.end_task and i < 20:
-                    go_only_res.append(self.controller.run_trial(is_nogo=False))
-                    i += 1
-                    if event.getKeys(keyList=['escape']):
-                        break
-                self.controller.end_task = False
+                if not shorten or trial_set_count == 1:
+                    self.controller.run_message("Trial {}".format(2 * trial_set_count + 1))
+                    # Go only
+                    i = 0
+                    while not self.controller.end_task and i < 20:
+                        go_only_res.append(self.controller.run_trial(is_nogo=False))
+                        i += 1
+                        if event.getKeys(keyList=['escape']):
+                            break
+                    self.controller.end_task = False
 
                 self.controller.run_message("Trial {}".format(2 * trial_set_count + 2))
                 # Go and no go
