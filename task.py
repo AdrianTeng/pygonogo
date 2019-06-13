@@ -53,8 +53,10 @@ class Task:
         self.display.close()
 
     def save(self):
+        final_score = len([i for i in self.data if i.endswith("True")])
         with open(os.path.join(getcwd(), "{}_{}.csv".format(self.taskname, self.subject)), 'w+') as fp:
             fp.write("\n".join(self.data))
+            fp.write("\nFinal score={}".format(final_score))
 
     def run(self):
         try:
