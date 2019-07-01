@@ -78,7 +78,7 @@ class Task:
             trial_count = 0
             for trial_set_count in range(4):
                 trial_count += 1
-                if not shorten or trial_set_count == 1:
+                if not shorten or trial_set_count == 0:
                     self.controller.run_message("Trial {}".format(trial_count))
                     # Go only
                     i = 0
