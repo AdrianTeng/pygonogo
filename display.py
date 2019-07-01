@@ -39,7 +39,7 @@ class Display:
             self.gotargs.append(TextStim(self.win, text='3', pos=self.geom['target_centers'][targ], height=.3))
             self.gotargs.append(TextStim(self.win, text='4', pos=self.geom['target_centers'][targ], height=.3))
 
-            self.deftargs.append(TextStim(self.win, text='+', pos=self.geom['target_centers'][targ], height=.3))
+            self.deftargs.append(TextStim(self.win, text='+', pos=self.geom['target_centers'][targ], height=.2))
 
         # set initial target stims to be the defaults
         self.targets = []
