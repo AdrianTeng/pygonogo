@@ -75,9 +75,11 @@ class Task:
             go_only_res = []
             go_nogo_res = []
 
+            trial_count = 0
             for trial_set_count in range(4):
+                trial_count += 1
                 if not shorten or trial_set_count == 1:
-                    self.controller.run_message("Trial {}".format(2 * trial_set_count + 1))
+                    self.controller.run_message("Trial {}".format(trial_count))
                     # Go only
                     i = 0
                     while not self.controller.end_task and i < 20:
@@ -87,7 +89,7 @@ class Task:
                             break
                     self.controller.end_task = False
 
-                self.controller.run_message("Trial {}".format(2 * trial_set_count + 2))
+                self.controller.run_message("Trial {}".format(trial_count))
                 # Go and no go
                 i = 0
                 trial_flavour = NOGO_TRIALS[trial_set_count]
