@@ -48,15 +48,18 @@ class Task:
         self.controller = controller.Controller(self.pars, self.display,
                                                 self.logger, self.joystick)
 
-
     def teardown(self):
         self.display.close()
 
     def save(self):
-        final_score = len([i for i in self.data if i.endswith("1")])
+        correct_go_only = len([i for i in self.data if 'go-only' in i and ',go,' in i and i.endswith('1')])
+        correct_positive_nogo = len([i for i in self.data if 'go-nogo' in i and ',go,' in i and i.endswith('1')])
+        correct_negative_nogo = len([i for i in self.data if 'go-nogo' in i and ',no,' in i and i.endswith('1')])
         with open(os.path.join(getcwd(), "{}_{}.csv".format(self.taskname, self.subject)), 'w+') as fp:
             fp.write("\n".join(self.data))
-            fp.write("\nFinal score={}".format(final_score))
+            fp.write("\nCorrect Positive Go-Nogo={}".format(correct_positive_nogo))
+            fp.write("\nCorrect Negative Go-Nogo={}".format(correct_negative_nogo))
+            fp.write("\nCorrect Go-only={}".format(correct_go_only))
 
     def run(self, shorten=False):
         try:
@@ -79,7 +82,7 @@ class Task:
             for trial_set_count in range(4):
                 trial_count += 1
                 if not shorten or trial_set_count == 0:
-                    self.controller.run_message("Trial {}".format(trial_count))
+                    self.controller.run_message("Trial {}".format(trial_count), height=0.1)
                     # Go only
                     i = 0
                     while not self.controller.end_task and i < 20:
@@ -90,7 +93,7 @@ class Task:
                     self.controller.end_task = False
 
                 trial_count += 1
-                self.controller.run_message("Trial {}".format(trial_count))
+                self.controller.run_message("Trial {}".format(trial_count), height=0.1)
                 # Go and no go
                 i = 0
                 trial_flavour = NOGO_TRIALS[trial_set_count]
@@ -101,9 +104,9 @@ class Task:
                         break
                 self.controller.end_task = False
             self.save()
-            self.controller.run_message("The end, thank you")
+            self.controller.run_message("The end, thank you", height=0.1)
             print("Go only result: {}".format(sum(go_only_res)))
             print("Go/no go only result: {}".format(sum(go_nogo_res)))
-            self.controller.run_message("Go only: {}, go-nogo: {}".format(sum(go_only_res), sum(go_nogo_res)))
+            self.controller.run_message("Go only: {}\nGo-Nogo: {}".format(sum(go_only_res), sum(go_nogo_res)), height=0.1)
         except EscapeKeyPressed:
             print("Escape key pressed. Exiting.")
