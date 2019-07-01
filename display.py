@@ -33,13 +33,13 @@ class Display:
         self.deftargs = []
 
         for targ in range(self.geom['numtargs']):
-            self.notargs.append(TextStim(self.win, text='0', pos=self.geom['target_centers'][targ], height=1))
-            self.gotargs.append(TextStim(self.win, text='1', pos=self.geom['target_centers'][targ], height=1))
-            self.gotargs.append(TextStim(self.win, text='2', pos=self.geom['target_centers'][targ], height=1))
-            self.gotargs.append(TextStim(self.win, text='3', pos=self.geom['target_centers'][targ], height=1))
-            self.gotargs.append(TextStim(self.win, text='4', pos=self.geom['target_centers'][targ], height=1))
+            self.notargs.append(TextStim(self.win, text='0', pos=self.geom['target_centers'][targ], height=.5))
+            self.gotargs.append(TextStim(self.win, text='1', pos=self.geom['target_centers'][targ], height=.5))
+            self.gotargs.append(TextStim(self.win, text='2', pos=self.geom['target_centers'][targ], height=.5))
+            self.gotargs.append(TextStim(self.win, text='3', pos=self.geom['target_centers'][targ], height=.5))
+            self.gotargs.append(TextStim(self.win, text='4', pos=self.geom['target_centers'][targ], height=.5))
 
-            self.deftargs.append(TextStim(self.win, text='+', pos=self.geom['target_centers'][targ], height=1))
+            self.deftargs.append(TextStim(self.win, text='+', pos=self.geom['target_centers'][targ], height=.5))
 
         # set initial target stims to be the defaults
         self.targets = []
