@@ -37,7 +37,7 @@ class Controller:
 
         self.onset_countdown = CountdownTimer(self.onset_interval)
 
-    def run_trial(self, is_nogo):
+    def run_trial(self, is_nogo, event_type):
         self.open_trial(is_nogo)
 
         while not self.trial_over:
@@ -51,7 +51,7 @@ class Controller:
 
             self.refresh()
 
-        self.close_trial()
+        self.close_trial(event_type)
 
         return self.correct
 
@@ -131,11 +131,11 @@ class Controller:
             self.display.offset(self.which_target)
             self.display.draw()
 
-    def close_trial(self):
-        # print to screen
-        self.mark_event(",".join(map(str, [self.trialnum, self.trial_type, self.result, self.rt, self.correct])))
-        print('Trial {0:d}: Type {1}  Result: {2}  RT: {3:0.3g}  Correct: {4:d}'.
-              format(self.trialnum, self.trial_type, self.result, self.rt, self.correct))
+    def close_trial(self, event_type):
+        if event_type:
+            self.mark_event(",".join(map(str, [self.trialnum, event_type, self.trial_type, self.result, self.rt, '1' if self.correct else '0'])))
+            print('Trial {0:d}: Type {1}  Result: {2}  RT: {3:0.3g}  Correct: {4}'.
+                  format(self.trialnum, self.trial_type, self.result, self.rt, '1' if self.correct else '0'))
 
     def calculate_points(self, pars, rt):
         return int(np.floor(pars['pts_per_correct'] * np.exp(

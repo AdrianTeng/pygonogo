@@ -30,9 +30,7 @@ def setup_joystick():
 
 
 def setup_logging(data):
-
-    nidaq = None
-    data.append('Trial,Type,Result,Response Time,Correct')  # Headers
+    data.append('Trial,Test_type,Trial_type,Result,Response Time,Correct')  # Headers
 
     def logger(event, channel=1):
         data.append(event)

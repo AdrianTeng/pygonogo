@@ -53,7 +53,7 @@ class Task:
         self.display.close()
 
     def save(self):
-        final_score = len([i for i in self.data if i.endswith("True")])
+        final_score = len([i for i in self.data if i.endswith("1")])
         with open(os.path.join(getcwd(), "{}_{}.csv".format(self.taskname, self.subject)), 'w+') as fp:
             fp.write("\n".join(self.data))
             fp.write("\nFinal score={}".format(final_score))
@@ -66,7 +66,7 @@ class Task:
             # tutorial
             i = 0
             while not self.controller.end_task and i < 5:
-                self.controller.run_trial(is_nogo=bool(i % 2))
+                self.controller.run_trial(is_nogo=bool(i % 2), event_type=None)
                 i += 1
                 if event.getKeys(keyList=['escape']):
                     raise EscapeKeyPressed()
@@ -83,18 +83,19 @@ class Task:
                     # Go only
                     i = 0
                     while not self.controller.end_task and i < 20:
-                        go_only_res.append(self.controller.run_trial(is_nogo=False))
+                        go_only_res.append(self.controller.run_trial(is_nogo=False, event_type='go-only'))
                         i += 1
                         if event.getKeys(keyList=['escape']):
                             break
                     self.controller.end_task = False
 
+                trial_count += 1
                 self.controller.run_message("Trial {}".format(trial_count))
                 # Go and no go
                 i = 0
                 trial_flavour = NOGO_TRIALS[trial_set_count]
                 while not self.controller.end_task and i < 20:
-                    go_nogo_res.append(self.controller.run_trial(is_nogo=int(trial_flavour[i])))
+                    go_nogo_res.append(self.controller.run_trial(is_nogo=int(trial_flavour[i]), event_type='go-nogo'))
                     i += 1
                     if event.getKeys(keyList=['escape']):
                         break
