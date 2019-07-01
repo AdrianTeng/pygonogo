@@ -55,7 +55,7 @@ class Task:
         correct_go_only = len([i for i in self.data if 'go-only' in i and ',go,' in i and i.endswith('1')])
         correct_positive_nogo = len([i for i in self.data if 'go-nogo' in i and ',go,' in i and i.endswith('1')])
         correct_negative_nogo = len([i for i in self.data if 'go-nogo' in i and ',no,' in i and i.endswith('1')])
-        with open(os.path.join(getcwd(), "{}_{}.csv".format(self.taskname, self.subject)), 'w+') as fp:
+        with open(os.path.join(getcwd(), "{}_{}.csv".format(self.taskname, self.subject)), 'a') as fp:
             fp.write("\n".join(self.data))
             fp.write("\nCorrect Positive Go-Nogo={}".format(correct_positive_nogo))
             fp.write("\nCorrect Negative Go-Nogo={}".format(correct_negative_nogo))
